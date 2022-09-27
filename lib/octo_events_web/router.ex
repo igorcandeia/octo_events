@@ -24,4 +24,10 @@ defmodule OctoEventsWeb.Router do
       live_dashboard "/dashboard", metrics: OctoEventsWeb.Telemetry
     end
   end
+
+  scope "/", OctoEventsWeb do
+    pipe_through :api
+
+    post "/events", EventsController, :create
+  end
 end
