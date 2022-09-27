@@ -6,14 +6,29 @@ defmodule OctoEventsWeb.EventsController do
   def create(conn, params) do
     params
     |> OctoEvents.create_event()
-    |> handle_response(conn, "create.json", :created)
+    |> handle_create_response(conn)
   end
 
-  defp handle_response({:ok, event}, conn, view, status) do
+  defp handle_create_response({:ok, event}, conn) do
     conn
-    |> put_status(status)
-    |> render(view, event: event)
+    |> put_status(:created)
+    |> render("create.json", event: event)
   end
 
-  defp handle_response({:error, _changeset} = error, _conn, _view, _status), do: error
+  defp handle_create_response({:error, _changeset} = error, _conn), do: error
+
+  def show(conn, %{"number" => number}) do
+    number
+    |> OctoEvents.fetch_events_by_number()
+    |> handle_show_response(conn)
+  end
+
+  defp handle_show_response({:ok, events}, conn) do
+    conn
+    |> put_status(:ok)
+    |> render("show_events.json", events: events)
+  end
+
+  defp handle_show_response({:error, _events} = error, _conn), do: error
+
 end

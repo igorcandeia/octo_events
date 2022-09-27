@@ -15,4 +15,11 @@ defmodule OctoEventsWeb.EventsView do
       }
     }
   end
+
+  def render("show_events.json", %{events: events}) do
+    events
+    |> Enum.map(fn event ->
+      %{action: event.action, created_at: event.created_at, number: event.number}
+    end)
+  end
 end
