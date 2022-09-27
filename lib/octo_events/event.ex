@@ -31,6 +31,8 @@ defmodule OctoEvents.Event do
     }
   end
 
+  defp build_event(invalid_body), do: invalid_body
+
   def changeset(params) do
     %__MODULE__{}
     |> cast(params, @required_params)

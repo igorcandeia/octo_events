@@ -1,8 +1,6 @@
 defmodule OctoEventsWeb.ErrorView do
   use OctoEventsWeb, :view
 
-  import Ecto.Changeset, only: [traverse_errors: 2]
-
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.
   # def render("500.json", _assigns) do
@@ -16,19 +14,15 @@ defmodule OctoEventsWeb.ErrorView do
     %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
   end
 
-  def render("400.json", %{result: %Ecto.Changeset{} = result}) do
-    %{message: translate_errors(result)}
+  def render("400.json", %{result: %Ecto.Changeset{errors: errors}}) do
+    result =
+      errors
+      |> Enum.reduce(%{}, fn {key, {error, _validator}}, acc -> Map.put(acc, key, error) end)
+
+    %{errors: result}
   end
 
   def render("400.json", %{result: message}) do
     %{message: message}
-  end
-
-  defp translate_errors(changeset) do
-    traverse_errors(changeset, fn {msg, opts} ->
-      Regex.replace(~r"%{(\w+)}", msg, fn _, key ->
-        opts |> Keyword.get(String.to_existing_atom(key), key) |> to_string()
-      end)
-    end)
   end
 end
