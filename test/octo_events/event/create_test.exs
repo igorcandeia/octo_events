@@ -1,5 +1,5 @@
 defmodule OctoEvents.Event.CreateTest do
-  use OctoEvents.DataCase
+  use OctoEvents.DataCase, async: true
 
   alias OctoEvents.{Event, Repo}
   alias Event.Create

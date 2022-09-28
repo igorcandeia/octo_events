@@ -1,5 +1,5 @@
 defmodule OctoEventsWeb.EventsControllerTest do
-  use OctoEventsWeb.ConnCase
+  use OctoEventsWeb.ConnCase, async: true
 
   describe "show/2" do
     test "when there is events with given number, returns a list of events", %{conn: conn} do
@@ -36,7 +36,7 @@ defmodule OctoEventsWeb.EventsControllerTest do
         |> post(Routes.events_path(conn, :create, params))
         |> json_response(:created)
 
-      assert %{"message" => "Event created", "trainer" => %{"action" => "closed", "created_at" => "2022-09-26T18:21:21Z", "number" => 4}} == response
+      assert %{"event" => %{"action" => "closed", "created_at" => "2022-09-26T18:21:21Z", "number" => 4}, "message" => "Event created"} == response
     end
 
     test "when receive an invalid body, returns the error", %{conn: conn} do

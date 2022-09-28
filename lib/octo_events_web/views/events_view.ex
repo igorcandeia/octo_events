@@ -8,7 +8,7 @@ defmodule OctoEventsWeb.EventsView do
       }) do
     %{
       message: "Event created",
-      trainer: %{
+      event: %{
         action: action,
         created_at: created_at,
         number: number

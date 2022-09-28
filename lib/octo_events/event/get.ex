@@ -3,10 +3,7 @@ defmodule OctoEvents.Event.Get do
 
   import Ecto.Query
 
-  def call(number) when is_integer(number) do
-    number
-    |> get()
-  end
+  def call(number) when is_integer(number), do: get(number)
 
   def call(number) do
     case Integer.parse(number) do
@@ -23,7 +20,8 @@ defmodule OctoEvents.Event.Get do
   end
 
   defp fetch_events(number) do
-    from(e in Event, where: e.number == ^number)
+    Event
+    |> where(number: ^number)
     |> Repo.all()
   end
 end
