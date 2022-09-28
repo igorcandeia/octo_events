@@ -1,4 +1,4 @@
-defmodule OctoEventsWeb.EventsControllerTest do
+defmodule OctoEventsWeb.EventControllerTest do
   use OctoEventsWeb.ConnCase, async: true
 
   describe "show/2" do
@@ -11,16 +11,16 @@ defmodule OctoEventsWeb.EventsControllerTest do
 
       response =
         conn
-        |> get(Routes.events_path(conn, :show, 4))
+        |> get(Routes.event_path(conn, :show, 4))
         |> json_response(:ok)
 
-      assert [%{"action" => "closed", "created_at" => "2022-09-26T18:21:21Z"}] == response
+      assert [%{"action" => "closed", "created_at" => "2022-09-26T18:21:21Z", "number" => 4}] == response
     end
 
     test "when receive an invalid number, returns an error", %{conn: conn} do
       response =
         conn
-        |> get(Routes.events_path(conn, :show, "a"))
+        |> get(Routes.event_path(conn, :show, "a"))
         |> json_response(:bad_request)
 
       assert %{"message" => "'a' is not a number"} == response
@@ -33,10 +33,10 @@ defmodule OctoEventsWeb.EventsControllerTest do
 
       response =
         conn
-        |> post(Routes.events_path(conn, :create, params))
+        |> post(Routes.event_path(conn, :create, params))
         |> json_response(:created)
 
-      assert %{"event" => %{"action" => "closed", "created_at" => "2022-09-26T18:21:21Z", "number" => 4}, "message" => "Event created"} == response
+      assert %{"action" => "closed", "created_at" => "2022-09-26T18:21:21Z", "number" => 4} == response
     end
 
     test "when receive an invalid body, returns the error", %{conn: conn} do
@@ -44,7 +44,7 @@ defmodule OctoEventsWeb.EventsControllerTest do
 
       response =
         conn
-        |> post(Routes.events_path(conn, :create, params))
+        |> post(Routes.event_path(conn, :create, params))
         |> json_response(:bad_request)
 
       assert %{"errors" => %{"number" => "can't be blank"}} == response

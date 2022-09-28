@@ -1,4 +1,4 @@
-defmodule OctoEventsWeb.EventsController do
+defmodule OctoEventsWeb.EventController do
   use OctoEventsWeb, :controller
 
   action_fallback OctoEventsWeb.FallbackController
