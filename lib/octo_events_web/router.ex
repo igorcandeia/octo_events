@@ -29,6 +29,6 @@ defmodule OctoEventsWeb.Router do
     pipe_through :api
 
     post "/events", EventController, :create
-    get "/issues/:number/events", EventController, :show
+    get "/issues/:number/events", EventController, :index
   end
 end

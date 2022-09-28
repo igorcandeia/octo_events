@@ -11,7 +11,7 @@ defmodule OctoEventsWeb.EventControllerTest do
 
       response =
         conn
-        |> get(Routes.event_path(conn, :show, 4))
+        |> get(Routes.event_path(conn, :index, 4))
         |> json_response(:ok)
 
       assert [%{"action" => "closed", "created_at" => "2022-09-26T18:21:21Z", "number" => 4}] == response
@@ -20,7 +20,7 @@ defmodule OctoEventsWeb.EventControllerTest do
     test "when receive an invalid number, returns an error", %{conn: conn} do
       response =
         conn
-        |> get(Routes.event_path(conn, :show, "a"))
+        |> get(Routes.event_path(conn, :index, "a"))
         |> json_response(:bad_request)
 
       assert %{"message" => "'a' is not a number"} == response

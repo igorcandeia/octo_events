@@ -17,18 +17,18 @@ defmodule OctoEventsWeb.EventController do
 
   defp handle_create_response({:error, _changeset} = error, _conn), do: error
 
-  def show(conn, %{"number" => number}) do
+  def index(conn, %{"number" => number}) do
     number
     |> OctoEvents.fetch_events_by_number()
-    |> handle_show_response(conn)
+    |> handle_index_response(conn)
   end
 
-  defp handle_show_response({:ok, events}, conn) do
+  defp handle_index_response({:ok, events}, conn) do
     conn
     |> put_status(:ok)
-    |> render("show_events.json", events: events)
+    |> render("index.json", events: events)
   end
 
-  defp handle_show_response({:error, _events} = error, _conn), do: error
+  defp handle_index_response({:error, _events} = error, _conn), do: error
 
 end

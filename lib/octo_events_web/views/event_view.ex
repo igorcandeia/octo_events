@@ -23,7 +23,7 @@ defmodule OctoEventsWeb.EventView do
   #   end)
   # end
 
-  def render("show_events.json", %{events: events}) do
+  def render("index.json", %{events: events}) do
     render_many(events, __MODULE__, "create.json")
   end
 

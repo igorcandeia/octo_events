@@ -14,7 +14,7 @@ defmodule OctoEventsWeb.EventViewTest do
 
   test "renders show_events.json" do
     events = [%Event{action: "closed", created_at: "2022-09-26T18:21:21Z", number: 4}]
-    response = render(OctoEventsWeb.EventView, "show_events.json", events: events)
+    response = render(OctoEventsWeb.EventView, "index.json", events: events)
 
     assert [%{action: "closed", created_at: "2022-09-26T18:21:21Z", number: 4}] == response
   end
