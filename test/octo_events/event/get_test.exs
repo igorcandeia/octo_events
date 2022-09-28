@@ -25,7 +25,7 @@ defmodule OctoEvents.Event.GetTest do
       response = Get.call(9) # invalid number 9
 
       assert {:ok, events} = response
-      assert 0 == length(events) # the list is empty
+      assert Enum.empty?(events) # the list is empty
     end
 
     test "when the param is invalid, returns an error" do
