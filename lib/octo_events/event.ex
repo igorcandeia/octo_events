@@ -2,6 +2,8 @@ defmodule OctoEvents.Event do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias OctoEvents.Workers.CloseIssue
+
   schema "events" do
     field :action, :string
     field :created_at, :string
@@ -15,10 +17,34 @@ defmodule OctoEvents.Event do
 
   def build(params) do
     params
+    |> start_close_job()
     |> build_event()
     |> changeset()
     |> apply_action(:insert)
   end
+
+  # @timezone_fortaleza "America/Fortaleza"
+
+  defp start_close_job(
+         %{
+           "issue" => %{
+             "url" => issue_url,
+             "state" => "open"
+           }
+         } = params
+       ) do
+    # {:ok, now_timezone_fortaleza} = DateTime.now(@timezone_fortaleza)
+    # five_seconds_ago = DateTime.add(now_timezone_fortaleza, 5)
+    # IO.inspect(five_seconds_ago)
+
+    %{issue_url: issue_url}
+    |> CloseIssue.new()
+    |> Oban.insert()
+
+    params
+  end
+
+  defp start_close_job(params), do: params
 
   defp build_event(%{
          "action" => action,

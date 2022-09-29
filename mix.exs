@@ -45,7 +45,10 @@ defmodule OctoEvents.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
-      {:ex_crypto, "~> 0.10.0"}
+      {:ex_crypto, "~> 0.10.0"},
+      {:tesla, "~> 1.4"},
+      {:oban, "~> 2.13"},
+      {:tzdata, "~> 1.1"}
     ]
   end
 
