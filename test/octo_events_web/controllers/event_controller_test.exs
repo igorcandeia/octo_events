@@ -3,10 +3,10 @@ defmodule OctoEventsWeb.EventControllerTest do
 
   describe "show/2" do
     test "when there is events with given number, returns a list of events", %{conn: conn} do
-      params = %{action: "closed", created_at: "2022-09-26T18:21:21Z", number: 4}
+      params = %{action: "closed", created_at: "2022-09-26T18:21:21Z", number: 4, username: "testuser"}
       OctoEvents.create_event(params)
 
-      params = %{action: "opened", created_at: "2022-09-26T18:21:21Z", number: 5}
+      params = %{action: "opened", created_at: "2022-09-26T18:21:21Z", number: 5, username: "testuser"}
       OctoEvents.create_event(params)
 
       response =
@@ -29,7 +29,7 @@ defmodule OctoEventsWeb.EventControllerTest do
 
   describe "create/2" do
     test "when receive an event by post, saves that and returns the event", %{conn: conn} do
-      params = %{"action" => "closed", "created_at" => "2022-09-26T18:21:21Z", "number" => 4}
+      params = %{"action" => "closed", "created_at" => "2022-09-26T18:21:21Z", "number" => 4, username: "testuser"}
 
       response =
         conn
@@ -40,7 +40,7 @@ defmodule OctoEventsWeb.EventControllerTest do
     end
 
     test "when receive an invalid body, returns the error", %{conn: conn} do
-      params = %{"action" => "closed", "created_at" => "2022-09-26T18:21:21Z"}
+      params = %{"action" => "closed", "created_at" => "2022-09-26T18:21:21Z", username: "testuser"}
 
       response =
         conn

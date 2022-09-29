@@ -5,7 +5,7 @@ defmodule OctoEvents.EventTest do
 
   describe "changeset/1" do
     test "when all params are valid, returns a valid changeset" do
-      params = %{action: "closed", created_at: "2022-09-26T18:21:21Z", number: 4}
+      params = %{action: "closed", created_at: "2022-09-26T18:21:21Z", number: 4, username: "testuser"}
       response = Event.changeset(params)
 
       assert %Ecto.Changeset{
@@ -16,7 +16,7 @@ defmodule OctoEvents.EventTest do
     end
 
     test "when there are invalid params, returns an invalid changeset" do
-      params = %{action: "closed", created_at: "2022-09-26T18:21:21Z"}
+      params = %{action: "closed", created_at: "2022-09-26T18:21:21Z", username: "testuser"}
       response = Event.changeset(params)
 
       assert %Ecto.Changeset{
@@ -31,7 +31,7 @@ defmodule OctoEvents.EventTest do
 
   describe "build/1" do
     test "when all params are valid, returns a event struct" do
-      params = %{action: "closed", created_at: "2022-09-26T18:21:21Z", number: 4}
+      params = %{action: "closed", created_at: "2022-09-26T18:21:21Z", number: 4, username: "testuser"}
       response = Event.build(params)
 
       assert {:ok,
@@ -44,7 +44,7 @@ defmodule OctoEvents.EventTest do
     end
 
     test "when there are invalid params, returns an error" do
-      params = %{action: "closed", created_at: "2022-09-26T18:21:21Z"}
+      params = %{action: "closed", created_at: "2022-09-26T18:21:21Z", username: "testuser"}
       response = Event.build(params)
 
       assert {:error,
