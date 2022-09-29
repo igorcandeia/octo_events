@@ -21,8 +21,6 @@ defmodule OctoEvents.Event.CreateTest do
       cert_dir = "#{File.cwd!()}/test_rsa_private_key.pem"
       {:ok, rsa_private_key} = ExPublicKey.load(cert_dir)
 
-      IO.inspect(response.username_encrypted)
-
       {:ok, expected_username} =
         ExPublicKey.decrypt_private(response.username_encrypted, rsa_private_key)
 
