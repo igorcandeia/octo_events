@@ -48,10 +48,14 @@ defmodule OctoEvents.Event do
   defp put_username_encrypted(
          %Ecto.Changeset{valid?: true, changes: %{username: username}} = changeset
        ) do
-    {:ok, rsa_private_key} = ExPublicKey.load(@cert_dir)
-    {:ok, rsa_public_key} = ExPublicKey.public_key_from_private_key(rsa_private_key)
-    {:ok, username_encrypted} = ExPublicKey.encrypt_public(username, rsa_public_key)
-    change(changeset, %{username_encrypted: username_encrypted})
+    with {:ok, rsa_private_key} <- ExPublicKey.load(@cert_dir),
+         {:ok, rsa_public_key} <- ExPublicKey.public_key_from_private_key(rsa_private_key),
+         {:ok, username_encrypted} <- ExPublicKey.encrypt_public(username, rsa_public_key) do
+      change(changeset, %{username_encrypted: username_encrypted})
+    else
+      {:error, _} ->
+        add_error(changeset, :username_encrypted, "Error on encrypt username")
+    end
   end
 
   defp put_username_encrypted(changeset) do
