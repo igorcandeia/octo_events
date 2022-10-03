@@ -23,8 +23,6 @@ defmodule OctoEvents.Event do
     |> apply_action(:insert)
   end
 
-  # @timezone_fortaleza "America/Fortaleza"
-
   defp start_close_job(
          %{
            "issue" => %{
@@ -33,12 +31,8 @@ defmodule OctoEvents.Event do
            }
          } = params
        ) do
-    # {:ok, now_timezone_fortaleza} = DateTime.now(@timezone_fortaleza)
-    # five_seconds_ago = DateTime.add(now_timezone_fortaleza, 5)
-    # IO.inspect(five_seconds_ago)
-
     %{issue_url: issue_url}
-    |> CloseIssue.new()
+    |> CloseIssue.new(schedule_in: 5)
     |> Oban.insert()
 
     params

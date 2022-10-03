@@ -2,7 +2,7 @@ defmodule OctoEvents.GithubApi.Client do
   use Tesla
 
   plug Tesla.Middleware.JSON
-  plug Tesla.Middleware.BearerAuth, token: "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"
+  plug Tesla.Middleware.BearerAuth, token: "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"
   plug Tesla.Middleware.Headers, [{"User-Agent", "octo_events"}]
 
   def close_issue(issue_url) do
