@@ -20,3 +20,5 @@ config :octo_events, OctoEventsWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :octo_events, Oban, testing: :inline

@@ -9,6 +9,8 @@ defmodule OctoEvents.Application do
     children = [
       # Start the Ecto repository
       OctoEvents.Repo,
+      # Oban configuration
+      {Oban, Application.fetch_env!(:octo_events, Oban)},
       # Start the Telemetry supervisor
       OctoEventsWeb.Telemetry,
       # Start the PubSub system
