@@ -22,3 +22,5 @@ config :octo_events, OctoEventsWeb.Endpoint,
 config :logger, level: :warn
 
 config :octo_events, Oban, testing: :inline
+
+config :tesla, OctoEvents.GithubApi.Client, adapter: Tesla.Mock
