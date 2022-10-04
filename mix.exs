@@ -47,7 +47,8 @@ defmodule OctoEvents.MixProject do
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:ex_crypto, "~> 0.10.0"},
       {:tesla, "~> 1.4"},
-      {:oban, "~> 2.13"}
+      {:oban, "~> 2.13"},
+      {:mimic, "~> 1.7", only: :test}
     ]
   end
 
