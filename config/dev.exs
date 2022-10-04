@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 # Configure your database
 config :octo_events, OctoEvents.Repo,
